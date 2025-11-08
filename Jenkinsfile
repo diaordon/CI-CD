@@ -1,3 +1,4 @@
+cat > Jenkinsfile <<'JENKINS'
 pipeline {
   agent { docker { image 'python:3.10-slim'; args '-u root' } }
 
@@ -60,3 +61,5 @@ pipeline {
     }
   }
 }
+JENKINS
+
