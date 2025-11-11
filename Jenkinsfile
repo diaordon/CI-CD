@@ -14,21 +14,16 @@ pipeline {
     }
 
     stage('Install & Test') {
-      steps {
-        // Create and use a venv so pip installs are allowed
-        sh '''
-          set -euxo pipefail
-          python3 --version
-          python3 -m venv .venv
-          . .venv/bin/activate
-          python -m pip install --upgrade pip
-          pip install -r requirements.txt
-          mkdir -p test-results
-          pytest -q --junitxml=test-results/pytest.xml
-        '''
-      }
-    }
+  steps {
+    sh '''
+      python3 --version
+      python3 -m pip install --user -r requirements.txt
+      mkdir -p test-results
+      python3 -m pytest -q --junitxml=test-results/pytest.xml
+    '''
   }
+}
+
 
   post {
     success {
